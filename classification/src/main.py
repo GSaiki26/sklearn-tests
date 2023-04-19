@@ -1,5 +1,6 @@
 # Libs
 from numpy import ndarray
+from sklearn.metrics import accuracy_score
 from sklearn.svm import LinearSVC
 
 # Data
@@ -40,8 +41,9 @@ results = [
 
 predict = model.predict(tests)
 corrects: ndarray = (results == predict)  # type: ignore
-print(f'Results: Accuracy {corrects.sum()}/{len(tests)}')
-print(f'The model said:')
+print(f'Results: Accuracy {round(accuracy_score(results, predict), 2)}')
+print(f'The model said:\n')
 
 for index, test in enumerate(tests):
     print(f'Test: {str(test):<4} | Predicted: {str(predict[index]):<4}')
+
