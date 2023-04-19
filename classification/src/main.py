@@ -1,7 +1,11 @@
 # Libs
+from numpy import ndarray
 from sklearn.svm import LinearSVC
 
 # Data
+SPACE = 10
+
+# Human 0 | Kangaroo 1
 # It has 4 members?
 # It's tall?
 # It has a pocket?
@@ -25,7 +29,19 @@ model = LinearSVC()
 model.fit(x, y)
 
 # Test
-test_kangaroo = [0, 1, 1]
-test_human = [1, 1, 0]
+tests = [
+    [0, 1, 1],
+    [1, 1, 0]
+]
+results = [
+    1,
+    0
+]
 
-print(model.predict([test_kangaroo, test_human]))
+predict = model.predict(tests)
+corrects: ndarray = (results == predict)  # type: ignore
+print(f'Results: Accuracy {corrects.sum()}/{len(tests)}')
+print(f'The model said:')
+
+for index, test in enumerate(tests):
+    print(f'Test: {str(test):<4} | Predicted: {str(predict[index]):<4}')
